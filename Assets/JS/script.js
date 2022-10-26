@@ -1,28 +1,34 @@
-function startTimer(duration, display) {
+let second = 0
+let minute = 0
 
-    var timer = duration, minutes, seconds;
+const buttonPlay = document.getElementById("inicio")
+const timer = document.getElementById("timer")
 
-    setInterval(function()  {
+let countTime
 
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+const eventsButton = {
+    inicio() {
+        countTime = setInterval(time, 1000)
+    },
+    },
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+buttonPlay.addEventListener ("click", eventsButton.inicio)
 
-        display.textContent = minutes + ":" + seconds;
-
-        if(--timer < 0) {
-            timer = duration;
-        }
-        
-    }, 1000);
+function formatTime (timer) {
+    if (timer < 10) {
+        return `0${timer}`
+    } else {
+        return timer
+    }
 }
 
-window.onload = function() {
-    var duration = 60 * 4; // conversao para segundos
-    var display = document.querySelector("#timer") // Elemento para exibir o timer
+function time () {
+    second++
 
-    startTimer(duration, display) // Inicia a função
+    if (second === 60){
+        minute += 1
+        second = 0;
+    }
+    timer.innerHTML = `${formatTime(minute)}:${formatTime(second)}`;
 
-}
+    }
